@@ -36,6 +36,7 @@ app.get("/video", (req, res) => {
   fs.createReadStream(videoPath, { start, end }).pipe(res);
 });
 
-app.listen(3000, () => {
-  console.log("Movie Cloud running at http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Movie Cloud running at http://localhost:${PORT}`);
 });
