@@ -1,43 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Movie Cloud</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 </head>
 <body>
-
-<header>
-  <h1>Movie Cloud</h1>
-  <input id="search" placeholder="Search movies...">
-</header>
-
-<section class="hero">
-  <h2>Stream Your Movie Library Anywhere</h2>
-  <p>Upload, organize, tag, and watch your movies from the cloud.</p>
-</section>
-
-<section class="player-section">
-  <h2>Now Playing</h2>
-
-  <div class="player-container">
-    <video id="videoPlayer" controls>
-      <source src="http://localhost:3000/video" type="video/mp4">
-      <track src="subtitles/sample.vtt" kind="subtitles" srclang="en" label="English">
-    </video>
-  </div>
-</section>
-
-<section class="upload-section">
-  <h2>Add Movie</h2>
-  <input id="title" placeholder="Movie Title">
-  <input id="tag" placeholder="Tag">
-  <input id="age" placeholder="Age Rating">
-  <input id="image" type="file">
-  <button onclick="addMovie()">Add Movie</button>
-</section>
-
-<section id="movieGrid" class="grid"></section>
-
-<script src="app.js"></script>
+ 
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="#">
+        <span class="wordmark-icon">▶</span>
+        Movie<span class="wordmark-accent">Cloud</span>
+      </a>
+      <nav class="header-nav">
+        <a href="#library" class="nav-link">Library</a>
+        <a href="#player" class="nav-link">Player</a>
+        <a href="#upload" class="nav-link">Add Movie</a>
+      </nav>
+      <div class="search-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="search" class="search-input" placeholder="Search your library…" oninput="filterMovies()" />
+      </div>
+    </div>
+  </header>
+ 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-orb orb-1"></div>
+    <div class="hero-bg-orb orb-2"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">Personal Cinema</div>
+      <h1 class="hero-title">Your movies,<br><em>everywhere.</em></h1>
+      <p class="hero-sub">Upload, organize, and stream your personal film collection from any device. Your library lives in the cloud.</p>
+      <a href="#upload" class="hero-cta">
+        Add your first film
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+ 
+  <!-- PLAYER -->
+  <section class="player-section" id="player">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">Now Playing</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="player-frame">
+        <video id="videoPlayer" controls>
+          <source src="http://localhost:3000/video" type="video/mp4" />
+          <track src="subtitles/sample.vtt" kind="subtitles" srclang="en" label="English" />
+        </video>
+        <div class="player-gradient"></div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- UPLOAD -->
+  <section class="upload-section" id="upload">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">Add Movie</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="upload-card">
+        <div class="upload-fields">
+          <div class="field-group">
+            <label class="field-label" for="title">Title</label>
+            <input class="field-input" id="title" placeholder="e.g. Blade Runner 2049" />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="tag">Genre / Tag</label>
+            <input class="field-input" id="tag" placeholder="e.g. Sci-Fi, Drama" />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="age">Age Rating</label>
+            <input class="field-input" id="age" placeholder="e.g. PG-13, R" />
+          </div>
+          <div class="field-group field-group--file">
+            <label class="field-label" for="image">Poster Image</label>
+            <label class="file-drop" for="image" id="file-drop">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span id="file-label">Drop poster or click to browse</span>
+              <input class="file-input" id="image" type="file" accept="image/*" onchange="previewFile(this)" />
+            </label>
+          </div>
+        </div>
+        <div class="upload-actions">
+          <button class="btn-add" onclick="addMovie()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Add to Library
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- LIBRARY GRID -->
+  <section class="library-section" id="library">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">Library</h2>
+        <div class="section-rule"></div>
+        <span class="movie-count" id="movie-count">0 films</span>
+      </div>
+      <div id="movieGrid" class="grid"></div>
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">🎬</div>
+        <p class="empty-text">Your library is empty. Add your first film above.</p>
+      </div>
+    </div>
+  </section>
+ 
+  <script src="app.js"></script>
 </body>
 </html>
