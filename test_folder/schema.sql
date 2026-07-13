@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS users (
+  id CHAR(36) PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS movies (
+  id CHAR(36) PRIMARY KEY,
+  user_id CHAR(36) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  tag VARCHAR(100),
+  age_rating VARCHAR(20),
+  poster_key VARCHAR(512) NOT NULL,
+  video_key VARCHAR(512) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_movies_user_id (user_id),
+  CONSTRAINT fk_movies_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

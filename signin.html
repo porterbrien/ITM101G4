@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Movie Cloud</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="signin.html">
+        <span class="wordmark-icon">▶</span>
+        Movie<span class="wordmark-accent">Cloud</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- AUTH PAGE -->
+  <section class="auth-page">
+    <div class="hero-bg-orb orb-1"></div>
+    <div class="hero-bg-orb orb-2"></div>
+
+    <div class="auth-card">
+      <div class="auth-card-head">
+        <div class="hero-badge">Personal Cinema</div>
+        <h1 class="auth-title">Welcome back.</h1>
+        <p class="auth-sub">Sign in to reach your library from anywhere.</p>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="modal-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <form class="modal-form" id="auth-form" onsubmit="handleAuthSubmit(event)">
+        <div class="field-group">
+          <label class="field-label" for="auth-email">Email</label>
+          <input class="field-input" id="auth-email" type="email" required autocomplete="email" placeholder="you@example.com" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="auth-password">Password</label>
+          <input class="field-input" id="auth-password" type="password" required autocomplete="current-password" placeholder="••••••••" minlength="8" />
+        </div>
+        <p class="modal-error" id="auth-error"></p>
+        <button class="btn-add modal-submit" type="submit" id="auth-submit">Sign In</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="auth.js"></script>
+</body>
+</html>
