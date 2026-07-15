@@ -37,6 +37,14 @@ app.use(session({
   }
 }));
 
+app.get("/", (req, res) => {
+  if (req.session.userId) {
+    res.redirect("/home.html");
+  } else {
+    res.redirect("/signin.html");
+  }
+});
+
 /* ─── Auth helper ─────────────────────────────────────────────────── */
 function requireAuth(req, res, next) {
   if (!req.session.userId) {
