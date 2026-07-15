@@ -59,7 +59,43 @@ async function loadMovies() {
 }
 
 /* ─── Upload Movie ────────────────────────────────────────────────────── */
+let dodgeCount = 0;
+const MAX_DODGES = 2;
+
+function dodgeButton() {
+  if (dodgeCount >= MAX_DODGES) return; // let them finally click it
+
+  const btn = document.getElementById('paywall-close-btn');
+  const zone = btn.parentElement;
+  const zoneRect = zone.getBoundingClientRect();
+  const btnRect = btn.getBoundingClientRect();
+
+  const maxLeft = zoneRect.width - btnRect.width;
+  const maxTop = zoneRect.height - btnRect.height;
+
+  const newLeft = Math.random() * maxLeft;
+  const newTop = Math.random() * maxTop;
+
+  btn.style.left = `${newLeft}px`;
+  btn.style.top = `${newTop}px`;
+
+  dodgeCount++;
+}
+
+function closePaywall() {
+  document.getElementById('paywall-overlay').style.display = 'none';
+  // reset for next time
+  dodgeCount = 0;
+  const btn = document.getElementById('paywall-close-btn');
+  btn.style.left = '';
+  btn.style.top = '';
+}
+
 async function uploadMovie() {
+  if (movies.length >= 1) {
+    document.getElementById('paywall-overlay').style.display = 'flex';
+    return;
+  }
   const title = document.getElementById('title').value.trim();
   const tag   = document.getElementById('tag').value.trim();
   const age   = document.getElementById('age').value.trim();
