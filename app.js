@@ -1,4 +1,4 @@
-/* ─── Movie Cloud — app.js (index.html / home page) ──────────────────── */
+/* ─── Movie Cloud — app.js (home.html / home page) ──────────────────── */
 
 let movies = [];
 let filteredMovies = null;

@@ -10,7 +10,7 @@ async function redirectIfSignedIn() {
     const res = await fetch('/api/me', { credentials: 'include' });
     const data = await res.json();
     if (data.user) {
-      window.location.href = 'index.html';
+      window.location.href = 'home.html';
     }
   } catch (err) {
     // If the check fails, just let them sign in manually.
@@ -56,7 +56,7 @@ async function handleAuthSubmit(e) {
       return;
     }
 
-    window.location.href = 'index.html';
+    window.location.href = 'home.html';
   } catch (err) {
     errorEl.textContent = 'Could not reach the server. Please try again.';
     submitBtn.disabled = false;
